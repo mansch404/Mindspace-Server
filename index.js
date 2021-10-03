@@ -73,6 +73,21 @@ app.put('/api/meditationcourses/:id', (req, res) => {
 // ---------------
 
 
+// ------DELETE------
+
+app.delete('/api/meditationcourses/:id', (req, res) => {
+    const course = courses.find(c => c.id === parseInt(req.params.id));
+    if (!course) res.status(404).send("404 - The course with the given id does not exist.")
+    
+    const index = courses.indexOf(course);
+    courses.splice(index, 1);
+
+    res.send(course);
+});
+
+// ------------------
+
+
 // ------FUNCTIONS------
 
 function validateCourse(course) {
