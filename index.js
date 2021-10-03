@@ -3,16 +3,21 @@ const app = express();
 
 app.use(express.json());
 
+// ------DATA------
+
 const courses = [
-    { id: 1, name: "Meditating with MJA" },
+    { id: 1, name: "Under the stars" },
     { id: 2, name: "Morning meditation" },
     { id: 3, name: "course3" }
 ];
 
+// ----------------
+
+
 // ------GET------
 
 app.get('/', (req, res) => {
-    res.send('Hello World');
+    res.send('API for Mindspace');
 });
 
 app.get('/api/meditationcourses', (req, res) => {
@@ -30,7 +35,7 @@ app.get('/api/meditationcourses/:id', (req, res) => {
 
 // ------POST------
 
-app.post('/api/courses', (req, res) => {
+app.post('/api/meditationcourses', (req, res) => {
     const course = {
         id: courses.length + 1,
         name: req.body.name
