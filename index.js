@@ -27,7 +27,7 @@ app.get('/api/meditationcourses', (req, res) => {
 
 app.get('/api/meditationcourses/:id', (req, res) => {
     const course = courses.find(c => c.id === parseInt(req.params.id));
-    if (!course) res.status(404).send("404 - The course with the given id does not exist.")
+    if (!course) return res.status(404).send("404 - The course with the given id does not exist.")
     res.send(course)
 });
 
@@ -38,10 +38,7 @@ app.get('/api/meditationcourses/:id', (req, res) => {
 
 app.post('/api/meditationcourses', (req, res) => {
     const { error } = validateCourse(req.body);
-    if (error) {
-        res.status(400).send(error.details[0].message);
-        return;
-    }
+    if (error) return res.status(400).send(error.details[0].message);
 
     const course = {
         id: courses.length + 1,
@@ -58,13 +55,10 @@ app.post('/api/meditationcourses', (req, res) => {
 
 app.put('/api/meditationcourses/:id', (req, res) => {
     const course = courses.find(c => c.id === parseInt(req.params.id));
-    if (!course) res.status(404).send("404 - The course with the given id does not exist.")
+    if (!course) return res.status(404).send("404 - The course with the given id does not exist.")
     
     const { error } = validateCourse(req.body);
-    if (error) {
-        res.status(400).send(error.details[0].message);
-        return;
-    }
+    if (error) return res.status(400).send(error.details[0].message);
 
     course.name = req.body.name;
     res.send(course)
@@ -77,7 +71,7 @@ app.put('/api/meditationcourses/:id', (req, res) => {
 
 app.delete('/api/meditationcourses/:id', (req, res) => {
     const course = courses.find(c => c.id === parseInt(req.params.id));
-    if (!course) res.status(404).send("404 - The course with the given id does not exist.")
+    if (!course) return res.status(404).send("404 - The course with the given id does not exist.")
     
     const index = courses.indexOf(course);
     courses.splice(index, 1);
