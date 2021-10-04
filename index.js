@@ -12,6 +12,10 @@ const courses = [
     { id: 3, name: "course3" }
 ];
 
+const yogacourses = [
+    { id: 1, name: "Yoga with Manuel" }
+];
+
 // ----------------
 
 
@@ -28,7 +32,11 @@ app.get('/api/meditationcourses', (req, res) => {
 app.get('/api/meditationcourses/:id', (req, res) => {
     const course = courses.find(c => c.id === parseInt(req.params.id));
     if (!course) return res.status(404).send("404 - The course with the given id does not exist.")
-    res.send(course)
+    res.send(course);
+});
+
+app.get('/api/yogacourses', (req, res) => {
+    res.send(yogacourses);
 });
 
 // ---------------
