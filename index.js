@@ -1,5 +1,6 @@
 const Joi = require('joi');
 const express = require('express');
+const { json } = require('express/lib/response');
 const app = express();
 
 app.use(express.json());
@@ -13,7 +14,13 @@ const courses = [
 ];
 
 const yogacourses = [
-    { id: 1, name: "Yoga with Manuel" }
+    { id: 1, name: "Yoga with Manuel", genre: "Morning" },
+    { id: 2, name: "Yoga with Manuel", genre: "Chilling" },
+    { id: 3, name: "Yoga with Manuel", genre: "Morning" }
+];
+
+const calmSounds = [
+    { id: 1, name: "Cracking wood", imageURL: "https://example.com" }
 ];
 
 // ----------------
@@ -37,6 +44,33 @@ app.get('/api/meditationcourses/:id', (req, res) => {
 
 app.get('/api/yogacourses', (req, res) => {
     res.send(yogacourses);
+});
+
+app.get('/api/yogacourses/:data', (req, res) => {
+    query = JSON.stringify(req.query);
+
+    if (query === `{"search":"id"}`) {
+        const yogacourse = yogacourses.find(c => c.data === parseInt(req.params.data));
+        if (!yogacourse) return res.status(404).send("404 - The course with the given id does not exist.")
+        res.send(yogacourse);
+    } else if (query === `{"search":"genre"}`) {
+        var returnArr = [];
+        for(let y of yogacourses) {
+            if (y.genre == req.params.data) returnArr.push(y)
+        }
+        if (returnArr.length === 0) return res.status(404).send("404 - The course with the given genre does not exist.")
+
+        res.send(returnArr);
+    }
+});
+
+app.get('/api/yogacourses/genre/:genre', (req, res) => {
+    console.log(req.query.details)
+    
+});
+
+app.get('/api/calmsounds', (req, res) => {
+    res.send(calmSounds);
 });
 
 // ---------------
