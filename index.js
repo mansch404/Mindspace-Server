@@ -36,10 +36,22 @@ app.get('/api/meditationcourses', (req, res) => {
     res.send(courses);
 });
 
-app.get('/api/meditationcourses/:id', (req, res) => {
-    const course = courses.find(c => c.id === parseInt(req.params.id));
-    if (!course) return res.status(404).send("404 - The course with the given id does not exist.")
-    res.send(course);
+app.get('/api/meditationcourses/:data', (req, res) => {
+    query = JSON.stringify(req.query);
+
+    if (query === `{"search":"id"}`) {
+        const course = courses.find(c => c.data === parseInt(req.params.data));
+        if (!course) return res.status(404).send("404 - The course with the given id does not exist.")
+        res.send(course);
+    } else if (query === `{"search":"genre"}`) {
+        var returnArr = [];
+        for(let y of courses) {
+            if (y.name == req.params.data) returnArr.push(y)
+        }
+        // if (returnArr.length === 0) return res.status(404).send("404 - The course with the given genre does not exist.")
+
+        res.send(returnArr);
+    }
 });
 
 app.get('/api/yogacourses', (req, res) => {
