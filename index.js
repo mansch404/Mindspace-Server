@@ -62,7 +62,7 @@ app.get('/api/yogacourses/:data', (req, res) => {
     query = JSON.stringify(req.query);
 
     if (query === `{"search":"id"}`) {
-        const yogacourse = yogacourses.find(c => c.data === parseInt(req.params.data));
+        const yogacourse = yogacourses.find(c => c.data == parseInt(req.params.data));
         if (!yogacourse) return res.status(404).send("404 - The course with the given id does not exist.")
         res.send(yogacourse);
     } else if (query === `{"search":"genre"}`) {
