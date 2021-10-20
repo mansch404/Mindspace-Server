@@ -104,6 +104,8 @@ app.post('/api/meditationcourses', (req, res) => {
 
 
 app.post('/api/yogacourses', (req, res) => {
+    const { error } = validateYogaCourse(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
 
     const course = {
         id: yogacourses.length + 1,
@@ -151,6 +153,13 @@ app.delete('/api/meditationcourses/:id', (req, res) => {
 // ------FUNCTIONS------
 
 function validateCourse(course) {
+    const schema = {
+        name: Joi.string().min(3).required()
+    }
+    return Joi.validate(course, schema);
+}
+
+function validateYogaCourse(course) {
     const schema = {
         name: Joi.string().min(3).required()
     }
