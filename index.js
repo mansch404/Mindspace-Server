@@ -102,6 +102,18 @@ app.post('/api/meditationcourses', (req, res) => {
     res.send(course);
 });
 
+
+app.post('/api/yogacourses', (req, res) => {
+
+    const course = {
+        id: yogacourses.length + 1,
+        name: req.body.name,
+        genre: req.body.genre
+    };
+    courses.push(course);
+    res.send(course);
+});
+
 // ----------------
 
 
