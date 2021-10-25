@@ -77,7 +77,7 @@ app.get('/api/yogacourses/:data', (req, res) => {
 });
 
 app.get('/api/yogacourses/genre/:genre', (req, res) => {
-    console.log(req.query.details)
+    console.log(req.query.details);
     
 });
 
@@ -88,6 +88,11 @@ app.get('/api/calmsounds', (req, res) => {
 app.get('/api/calmsounds/:id', (req, res) => {
     res.send("In making");
 });
+
+app.get('/api/calmsounds/genre/:genre', (req, res) => {
+    res.send(req.query.details);
+});
+
 
 // ---------------
 
