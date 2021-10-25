@@ -85,6 +85,10 @@ app.get('/api/calmsounds', (req, res) => {
     res.send(calmSounds);
 });
 
+app.get('/api/calmsounds/:id', (req, res) => {
+    res.send("In making");
+});
+
 // ---------------
 
 
