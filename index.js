@@ -86,7 +86,7 @@ app.get('/api/calmsounds', (req, res) => {
 });
 
 app.get('/api/calmsounds/:id', (req, res) => {
-    res.send("In making");
+    res.send(req.query);
 });
 
 app.get('/api/calmsounds/genre/:genre', (req, res) => {
